@@ -16,7 +16,6 @@
         public ICollection<InstructorCourse> Instructors { get; set; }
 
         public ICollection<CourseProducer> CourseProducers { get; set; }
-      
 
 
     }

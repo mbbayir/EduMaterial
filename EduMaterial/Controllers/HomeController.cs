@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using EduMaterial.Models;
 using EduMaterial.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace EduMaterial.Controllers
 {
@@ -24,15 +25,26 @@ namespace EduMaterial.Controllers
             _signInManager = signInManager;
             _context = context;
         }
-            public IActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            var courses= _context.Courses.Include(c=>c.CategoryCourses)
+                         .ThenInclude(cc=>cc.Category)
+                         .Include(c=>c.Tags)
+                         .ThenInclude(ct=>ct.Tag)
+                         .Include(c=>c.Instructors)
+                         .ThenInclude(ic=>ic.Instructor)
+                         .Include(c=>c.CourseProducers)
+                         .ThenInclude(cp=>cp.Producer).ToList();
+          return View(courses);
         }
+
+
         [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)

@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewData["Title"] = "AllCategories";
+}
+
+@model IEnumerable<Category>
+
+<div class="container">
+    <h2>Kategoriler</h2>
+    <ul class="list-group">
+        @foreach (var category in Model)
+        {
+            <li class="list-group-item">
+                <a href="@Url.Action("Index", "Category", new { id = category.Id })">@category.Name</a>
+            </li>
+        }
+    </ul>
+</div>

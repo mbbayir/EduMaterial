@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+@model Category
+
+<div class="container">
+    <h2>@Model.Name</h2>
+    <p>Bu kategorideki kurslar:</p>
+
+    <div class="list-group">
+        @foreach (var categoryCourse in Model.CategoryCourses)
+        {
+            <a href="@Url.Action("Details", "Course", new { id = categoryCourse.Course.Id })" class="list-group-item list-group-item-action">
+                <h5 class="mb-1">@categoryCourse.Course.Name</h5>
+                <p class="mb-1">@categoryCourse.Course.Description</p>
+            </a>
+        }
+    </div>
+</div>

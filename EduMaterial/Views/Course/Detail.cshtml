@@ -1,0 +1,14 @@
+﻿@model EduMaterial.Models.Course
+
+<div class="container">
+    <h2>@Model.Name</h2>
+    <p>@Model.Description</p>
+
+    <h3>Kurs İçeriği</h3>
+    <ul class="list-group">
+        @foreach (var categoryCourse in Model.CategoryCourses)
+        {
+            <li class="list-group-item">@categoryCourse.Category.Name</li>
+        }
+    </ul>
+</div>
