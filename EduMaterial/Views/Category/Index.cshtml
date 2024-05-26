@@ -1,21 +1,27 @@
-﻿
+﻿@model IEnumerable<EduMaterial.Models.Category>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Category Index";
 }
 
-@model Category
+<h2>Categories</h2>
 
-<div class="container">
-    <h2>@Model.Name</h2>
-    <p>Bu kategorideki kurslar:</p>
-
-    <div class="list-group">
-        @foreach (var categoryCourse in Model.CategoryCourses)
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
         {
-            <a href="@Url.Action("Details", "Course", new { id = categoryCourse.Course.Id })" class="list-group-item list-group-item-action">
-                <h5 class="mb-1">@categoryCourse.Course.Name</h5>
-                <p class="mb-1">@categoryCourse.Course.Description</p>
-            </a>
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a href="@Url.Action("Details", "Category", new { id = category.Id })" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
         }
-    </div>
-</div>
+    </tbody>
+</table>

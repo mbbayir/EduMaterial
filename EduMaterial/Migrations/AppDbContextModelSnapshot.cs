@@ -120,16 +120,16 @@ namespace EduMaterial.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8297dbb7-aa36-4dc6-9f23-11f8d3767be8",
+                            Id = "d14fa38e-7fc0-41f4-886a-23181325c4b8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "48bfc2a3-6505-40d2-a753-849daea38de6",
+                            ConcurrencyStamp = "a170e216-ab0a-4cbb-b338-223daeb01b50",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FullName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIBN9tWGd+NE/M9fHAXPDccXita7B7vQFYLsLa371dh8/33v1L1jhWDsmLXkT2ptkg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFhTZVJjQG9X4/NG3CZzu54IWROXmlUMwVRBmDpqzoUxg0MY8CB/m3UCsqQVWWx84A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -150,6 +150,10 @@ namespace EduMaterial.Migrations
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("EditingDate")
                         .HasColumnType("datetime2");

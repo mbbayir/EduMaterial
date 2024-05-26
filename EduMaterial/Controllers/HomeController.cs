@@ -12,7 +12,7 @@ namespace EduMaterial.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-       
+
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -27,15 +27,15 @@ namespace EduMaterial.Controllers
         }
         public IActionResult Index()
         {
-            var courses= _context.Courses.Include(c=>c.CategoryCourses)
-                         .ThenInclude(cc=>cc.Category)
-                         .Include(c=>c.Tags)
-                         .ThenInclude(ct=>ct.Tag)
-                         .Include(c=>c.Instructors)
-                         .ThenInclude(ic=>ic.Instructor)
-                         .Include(c=>c.CourseProducers)
-                         .ThenInclude(cp=>cp.Producer).ToList();
-          return View(courses);
+            var courses = _context.Courses.Include(c => c.CategoryCourses)
+                         .ThenInclude(cc => cc.Category)
+                         .Include(c => c.Tags)
+                         .ThenInclude(ct => ct.Tag)
+                         .Include(c => c.Instructors)
+                         .ThenInclude(ic => ic.Instructor)
+                         .Include(c => c.CourseProducers)
+                         .ThenInclude(cp => cp.Producer).ToList();
+            return View(courses);
         }
 
 
@@ -121,6 +121,7 @@ namespace EduMaterial.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login");
         }
+
         public IActionResult Privacy()
         {
             return View();
