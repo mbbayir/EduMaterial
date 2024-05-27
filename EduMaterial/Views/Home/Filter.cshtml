@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewData["Title"] = "Course Index";
+﻿@{
+    ViewData["Title"] = "Filter";
 }
+
 @model List<Course>
 
 <form method="get">
@@ -10,7 +10,7 @@
         <select id="categoryFilter" name="categoryFilter" class="form-control">
             <option value="">Tümü </option>
 
-            @foreach(var category in ViewBag.Categories)
+            @foreach (var category in ViewBag.Categories)
             {
                 <option value="@category.Name">@category.Name</option>
             }
@@ -21,7 +21,7 @@
         <input type="text" id="searchFilter" name="searchFilter" class="form-control" value="@ViewBag.SearchFilter">
     </div>
 
-    <button type="submit" class="btn btn-primary" >Ara</button>
+    <button type="submit" class="btn btn-primary">Ara</button>
 </form>
 
 
@@ -72,4 +72,6 @@
         }
     </tbody>
 </table>
+
+
 

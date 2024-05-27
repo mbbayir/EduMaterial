@@ -354,14 +354,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Course\" />
     <Folder Include="wwwroot\Panel\vendor\fullcalendar\locales\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Views\Category\Details.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
   </ItemGroup>
 
 </Project>
