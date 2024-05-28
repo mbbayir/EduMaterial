@@ -1,4 +1,5 @@
 ﻿using EduMaterial.Models;
+using EduMaterial.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -48,13 +49,9 @@ namespace EduMaterial.Controllers
         }
 
         [HttpPost]
-
         public async Task<JsonResult> Create(Category category)
         {
-            if (!ModelState.IsValid)
-            {
-                return Json("Boş Veriler Var");
-            }
+           
             _context.Add(category);
             await _context.SaveChangesAsync();
             return Json("Kayıt Başarılı");
@@ -76,23 +73,16 @@ namespace EduMaterial.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Category category)
+
+        public async Task<JsonResult> Edit(int id, CategoryUpdateModel category)
         {
-            if (id != category.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                _context.Update(category);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
-            }
-            return View(category);
+            
+            var data= await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+            
+            data.Name=category.Name;
+            await _context.SaveChangesAsync();
+            return Json("Başarılı");
         }
-
         //Kategori Silme
 
         public async Task<IActionResult> Delete(int? id)
@@ -111,8 +101,6 @@ namespace EduMaterial.Controllers
 
             return View(category);
         }
-
-
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {

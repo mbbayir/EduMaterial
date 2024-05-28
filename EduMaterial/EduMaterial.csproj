@@ -354,7 +354,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Course\" />
     <Folder Include="wwwroot\Panel\vendor\fullcalendar\locales\" />
   </ItemGroup>
 
