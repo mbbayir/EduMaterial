@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EduMaterial.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240522000810_mig2")]
-    partial class mig2
+    [Migration("20240529040438_mig01")]
+    partial class mig01
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,16 +123,16 @@ namespace EduMaterial.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "45533744-d405-4727-8c64-f4ebcc1fe96b",
+                            Id = "01426673-993d-4ed6-acfe-ab771e42a457",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "13f5395b-7757-4737-8fd3-72a8cfad7b93",
+                            ConcurrencyStamp = "210384bb-407d-4d12-ad44-f550357091bd",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FullName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHpkYpthQ/fmWSyWJcmRC1Cw6WQlhYPJLrUSD9K0dV3jFN3cldsnYQCFrCgotxiCVA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBzJAxKUbMT3tXelL81+z2ZiAfeG/CqJQbUO1gk+ZlX54yd8qXQgL0fQ8Wj4ywo6iQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -151,7 +151,7 @@ namespace EduMaterial.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EditingDate")
@@ -174,15 +174,6 @@ namespace EduMaterial.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("EditingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.HasKey("CategoryId", "CourseId");
 
                     b.HasIndex("CourseId");
@@ -201,11 +192,10 @@ namespace EduMaterial.Migrations
                     b.Property<string>("AppUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DurationInHours")
@@ -214,12 +204,13 @@ namespace EduMaterial.Migrations
                     b.Property<DateTime?>("EditingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Filepath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -267,7 +258,7 @@ namespace EduMaterial.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EditingDate")
@@ -305,7 +296,7 @@ namespace EduMaterial.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EditingDate")
@@ -328,7 +319,7 @@ namespace EduMaterial.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EditingDate")

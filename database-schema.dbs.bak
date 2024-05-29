@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="SqlServer" id="SqlServer-2119" database="SqlServer" >
+	<schema name="dbo" catalogname="EduMaterial" >
+		<table name="AspNetRoleClaims" row_count="0" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="RoleId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ClaimType" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ClaimValue" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetRoleClaims" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+			<index name="IX_AspNetRoleClaims_RoleId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="RoleId" options=" asc" />
+			</index>
+			<fk name="FK_AspNetRoleClaims_AspNetRoles_RoleId" to_schema="EduMaterial.dbo" to_table="AspNetRoles" delete_action="cascade" options="" >
+				<fk_column name="RoleId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetRoles" row_count="0" spec="" >
+			<column name="Id" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Name" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="NormalizedName" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ConcurrencyStamp" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetRoles" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+			<index name="RoleNameIndex" unique="UNIQUE_INDEX" spec=" NONCLUSTERED" options="WHERE ([NormalizedName] IS NOT NULL)" >
+				<column name="NormalizedName" options=" asc" />
+			</index>
+		</table>
+		<table name="AspNetUserClaims" row_count="0" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="UserId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ClaimType" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ClaimValue" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetUserClaims" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+			<index name="IX_AspNetUserClaims_UserId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="UserId" options=" asc" />
+			</index>
+			<fk name="FK_AspNetUserClaims_AspNetUsers_UserId" to_schema="EduMaterial.dbo" to_table="AspNetUsers" delete_action="cascade" options="" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserLogins" row_count="0" spec="" >
+			<column name="LoginProvider" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ProviderKey" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ProviderDisplayName" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="UserId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetUserLogins" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="LoginProvider" options=" asc" />
+				<column name="ProviderKey" options=" asc" />
+			</index>
+			<index name="IX_AspNetUserLogins_UserId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="UserId" options=" asc" />
+			</index>
+			<fk name="FK_AspNetUserLogins_AspNetUsers_UserId" to_schema="EduMaterial.dbo" to_table="AspNetUsers" delete_action="cascade" options="" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserRoles" row_count="0" spec="" >
+			<column name="UserId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="RoleId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetUserRoles" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="UserId" options=" asc" />
+				<column name="RoleId" options=" asc" />
+			</index>
+			<index name="IX_AspNetUserRoles_RoleId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="RoleId" options=" asc" />
+			</index>
+			<fk name="FK_AspNetUserRoles_AspNetRoles_RoleId" to_schema="EduMaterial.dbo" to_table="AspNetRoles" delete_action="cascade" options="" >
+				<fk_column name="RoleId" pk="Id" />
+			</fk>
+			<fk name="FK_AspNetUserRoles_AspNetUsers_UserId" to_schema="EduMaterial.dbo" to_table="AspNetUsers" delete_action="cascade" options="" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUserTokens" row_count="0" spec="" >
+			<column name="UserId" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="LoginProvider" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Name" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Value" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_AspNetUserTokens" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="UserId" options=" asc" />
+				<column name="LoginProvider" options=" asc" />
+				<column name="Name" options=" asc" />
+			</index>
+			<fk name="FK_AspNetUserTokens_AspNetUsers_UserId" to_schema="EduMaterial.dbo" to_table="AspNetUsers" delete_action="cascade" options="" >
+				<fk_column name="UserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="AspNetUsers" row_count="1" spec="" >
+			<column name="Id" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="FullName" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="UserName" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="NormalizedUserName" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Email" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="NormalizedEmail" type="nvarchar" length="256" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="EmailConfirmed" type="bit" jt="-7" mandatory="y" />
+			<column name="PasswordHash" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="SecurityStamp" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ConcurrencyStamp" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="PhoneNumber" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="PhoneNumberConfirmed" type="bit" jt="-7" mandatory="y" />
+			<column name="TwoFactorEnabled" type="bit" jt="-7" mandatory="y" />
+			<column name="LockoutEnd" type="datetimeoffset" jt="92" />
+			<column name="LockoutEnabled" type="bit" jt="-7" mandatory="y" />
+			<column name="AccessFailedCount" type="int" jt="4" mandatory="y" />
+			<index name="PK_AspNetUsers" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+			<index name="UserNameIndex" unique="UNIQUE_INDEX" spec=" NONCLUSTERED" options="WHERE ([NormalizedUserName] IS NOT NULL)" >
+				<column name="NormalizedUserName" options=" asc" />
+			</index>
+			<index name="EmailIndex" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="NormalizedEmail" options=" asc" />
+			</index>
+		</table>
+		<table name="Categories" row_count="1" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="CategoryId" type="int" jt="4" mandatory="y" />
+			<column name="Name" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="CreatedDate" type="datetime2" jt="92" />
+			<column name="EditingDate" type="datetime2" jt="92" />
+			<index name="PK_Categories" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+		</table>
+		<table name="CategoryCourses" row_count="1" spec="" >
+			<column name="CategoryId" type="int" jt="4" mandatory="y" />
+			<column name="CourseId" type="int" jt="4" mandatory="y" />
+			<index name="PK_CategoryCourses" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="CategoryId" options=" asc" />
+				<column name="CourseId" options=" asc" />
+			</index>
+			<index name="IX_CategoryCourses_CourseId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="CourseId" options=" asc" />
+			</index>
+			<fk name="FK_CategoryCourses_Categories_CategoryId" to_schema="EduMaterial.dbo" to_table="Categories" delete_action="cascade" options="" >
+				<fk_column name="CategoryId" pk="Id" />
+			</fk>
+			<fk name="FK_CategoryCourses_Courses_CourseId" to_schema="EduMaterial.dbo" to_table="Courses" delete_action="cascade" options="" >
+				<fk_column name="CourseId" pk="Id" />
+			</fk>
+		</table>
+		<table name="CourseProducers" row_count="0" spec="" >
+			<column name="CourseId" type="int" jt="4" mandatory="y" />
+			<column name="ProducerId" type="int" jt="4" mandatory="y" />
+			<index name="PK_CourseProducers" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="CourseId" options=" asc" />
+				<column name="ProducerId" options=" asc" />
+			</index>
+			<index name="IX_CourseProducers_ProducerId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="ProducerId" options=" asc" />
+			</index>
+			<fk name="FK_CourseProducers_Courses_CourseId" to_schema="EduMaterial.dbo" to_table="Courses" delete_action="cascade" options="" >
+				<fk_column name="CourseId" pk="Id" />
+			</fk>
+			<fk name="FK_CourseProducers_Producers_ProducerId" to_schema="EduMaterial.dbo" to_table="Producers" delete_action="cascade" options="" >
+				<fk_column name="ProducerId" pk="Id" />
+			</fk>
+		</table>
+		<table name="CourseTags" row_count="0" spec="" >
+			<column name="CourseId" type="int" jt="4" mandatory="y" />
+			<column name="TagId" type="int" jt="4" mandatory="y" />
+			<index name="PK_CourseTags" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="CourseId" options=" asc" />
+				<column name="TagId" options=" asc" />
+			</index>
+			<index name="IX_CourseTags_TagId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="TagId" options=" asc" />
+			</index>
+			<fk name="FK_CourseTags_Courses_CourseId" to_schema="EduMaterial.dbo" to_table="Courses" delete_action="cascade" options="" >
+				<fk_column name="CourseId" pk="Id" />
+			</fk>
+			<fk name="FK_CourseTags_Tags_TagId" to_schema="EduMaterial.dbo" to_table="Tags" delete_action="cascade" options="" >
+				<fk_column name="TagId" pk="Id" />
+			</fk>
+		</table>
+		<table name="Courses" row_count="1" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="Name" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Description" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="DurationInHours" type="int" jt="4" mandatory="y" />
+			<column name="Filepath" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="AppUserId" type="nvarchar" length="450" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="CreatedDate" type="datetime2" jt="92" />
+			<column name="EditingDate" type="datetime2" jt="92" />
+			<index name="PK_Courses" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+			<index name="IX_Courses_AppUserId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="AppUserId" options=" asc" />
+			</index>
+			<fk name="FK_Courses_AspNetUsers_AppUserId" to_schema="EduMaterial.dbo" to_table="AspNetUsers" options="" >
+				<fk_column name="AppUserId" pk="Id" />
+			</fk>
+		</table>
+		<table name="IdentityRole" row_count="2" spec="" >
+			<column name="Id" type="nvarchar" length="450" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="Name" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="NormalizedName" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ConcurrencyStamp" type="nvarchar(max)" jt="12" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK_IdentityRole" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+		</table>
+		<table name="InstructorCourses" row_count="0" spec="" >
+			<column name="InstructorId" type="int" jt="4" mandatory="y" />
+			<column name="CourseId" type="int" jt="4" mandatory="y" />
+			<index name="PK_InstructorCourses" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="InstructorId" options=" asc" />
+				<column name="CourseId" options=" asc" />
+			</index>
+			<index name="IX_InstructorCourses_CourseId" unique="NORMAL" spec=" NONCLUSTERED" >
+				<column name="CourseId" options=" asc" />
+			</index>
+			<fk name="FK_InstructorCourses_Courses_CourseId" to_schema="EduMaterial.dbo" to_table="Courses" delete_action="cascade" options="" >
+				<fk_column name="CourseId" pk="Id" />
+			</fk>
+			<fk name="FK_InstructorCourses_Instructors_InstructorId" to_schema="EduMaterial.dbo" to_table="Instructors" delete_action="cascade" options="" >
+				<fk_column name="InstructorId" pk="Id" />
+			</fk>
+		</table>
+		<table name="Instructors" row_count="0" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="Name" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="CreatedDate" type="datetime2" jt="92" />
+			<column name="EditingDate" type="datetime2" jt="92" />
+			<index name="PK_Instructors" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+		</table>
+		<table name="Producers" row_count="0" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="Name" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="CreatedDate" type="datetime2" jt="92" />
+			<column name="EditingDate" type="datetime2" jt="92" />
+			<index name="PK_Producers" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+		</table>
+		<table name="Tags" row_count="0" spec="" >
+			<column name="Id" type="int" jt="4" mandatory="y" >
+				<identity><![CDATA[IDENTITY]]></identity>
+			</column>
+			<column name="Name" type="nvarchar(max)" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="CreatedDate" type="datetime2" jt="92" />
+			<column name="EditingDate" type="datetime2" jt="92" />
+			<index name="PK_Tags" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="Id" options=" asc" />
+			</index>
+		</table>
+		<table name="__EFMigrationsHistory" row_count="1" spec="" >
+			<column name="MigrationId" type="nvarchar" length="150" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<column name="ProductVersion" type="nvarchar" length="32" jt="12" mandatory="y" >
+				<column_options><![CDATA[COLLATE Turkish_CI_AS]]></column_options>
+			</column>
+			<index name="PK___EFMigrationsHistory" unique="PRIMARY_KEY" spec=" CLUSTERED" >
+				<column name="MigrationId" options=" asc" />
+			</index>
+		</table>
+	</schema>
+	<layout name="Main Layout" id="Layout-1d6c" show_relation="columns" >
+		<entity schema="EduMaterial.dbo" name="AspNetRoleClaims" color="C7F4BE" x="1840" y="80" />
+		<entity schema="EduMaterial.dbo" name="AspNetRoles" color="C7F4BE" x="1600" y="80" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserClaims" color="C7F4BE" x="1600" y="480" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserLogins" color="C7F4BE" x="1328" y="480" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserRoles" color="C7F4BE" x="1600" y="304" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserTokens" color="C7F4BE" x="1120" y="480" />
+		<entity schema="EduMaterial.dbo" name="AspNetUsers" color="C7F4BE" x="1328" y="80" />
+		<entity schema="EduMaterial.dbo" name="Categories" color="F4DDBE" x="688" y="560" />
+		<entity schema="EduMaterial.dbo" name="CategoryCourses" color="F4DDBE" x="480" y="560" />
+		<entity schema="EduMaterial.dbo" name="CourseProducers" color="F4DDBE" x="256" y="832" />
+		<entity schema="EduMaterial.dbo" name="CourseTags" color="F4DDBE" x="480" y="832" />
+		<entity schema="EduMaterial.dbo" name="Courses" color="F4DDBE" x="256" y="560" />
+		<entity schema="EduMaterial.dbo" name="IdentityRole" color="BED3F4" x="1488" y="1024" />
+		<entity schema="EduMaterial.dbo" name="InstructorCourses" color="F4DDBE" x="48" y="832" />
+		<entity schema="EduMaterial.dbo" name="Instructors" color="F4DDBE" x="256" y="1008" />
+		<entity schema="EduMaterial.dbo" name="Producers" color="F4DDBE" x="464" y="1008" />
+		<entity schema="EduMaterial.dbo" name="Tags" color="F4DDBE" x="672" y="832" />
+		<entity schema="EduMaterial.dbo" name="__EFMigrationsHistory" color="BED3F4" x="1264" y="1024" />
+		<callout x="1104" y="304" pointer="Round" >
+			<comment><![CDATA[This is a layout. You can create multiple layouts with the same or different tables. 
+Double-click the table headers to edit.]]></comment>
+		</callout>
+		<group name="__EFMigrationsHistory" color="ECF0F7" >
+			<entity schema="EduMaterial.dbo" name="__EFMigrationsHistory" />
+			<entity schema="EduMaterial.dbo" name="IdentityRole" />
+		</group>
+		<group name="AspNetUsers" color="EEF7EC" >
+			<entity schema="EduMaterial.dbo" name="AspNetUsers" />
+			<entity schema="EduMaterial.dbo" name="AspNetRoles" />
+			<entity schema="EduMaterial.dbo" name="AspNetUserRoles" />
+			<entity schema="EduMaterial.dbo" name="AspNetRoleClaims" />
+			<entity schema="EduMaterial.dbo" name="AspNetUserClaims" />
+			<entity schema="EduMaterial.dbo" name="AspNetUserLogins" />
+			<entity schema="EduMaterial.dbo" name="AspNetUserTokens" />
+		</group>
+		<group name="Courses" color="F7F2EC" >
+			<entity schema="EduMaterial.dbo" name="Courses" />
+			<entity schema="EduMaterial.dbo" name="CategoryCourses" />
+			<entity schema="EduMaterial.dbo" name="CourseTags" />
+			<entity schema="EduMaterial.dbo" name="CourseProducers" />
+			<entity schema="EduMaterial.dbo" name="InstructorCourses" />
+			<entity schema="EduMaterial.dbo" name="Categories" />
+			<entity schema="EduMaterial.dbo" name="Tags" />
+			<entity schema="EduMaterial.dbo" name="Producers" />
+			<entity schema="EduMaterial.dbo" name="Instructors" />
+		</group>
+	</layout>
+	<layout name="~Layout with Sample Tools" id="Layout-1283" show_column_type="y" show_relation="columns" >
+		<entity schema="EduMaterial.dbo" name="AspNetRoleClaims" color="C7F4BE" x="1936" y="48" />
+		<entity schema="EduMaterial.dbo" name="AspNetRoles" color="C7F4BE" x="1632" y="48" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserClaims" color="C7F4BE" x="1632" y="448" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserLogins" color="C7F4BE" x="1312" y="448" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserRoles" color="C7F4BE" x="1632" y="272" />
+		<entity schema="EduMaterial.dbo" name="AspNetUserTokens" color="C7F4BE" x="1024" y="448" />
+		<entity schema="EduMaterial.dbo" name="AspNetUsers" color="C7F4BE" x="1312" y="48" />
+		<entity schema="EduMaterial.dbo" name="Categories" color="F4DDBE" x="736" y="48" />
+		<entity schema="EduMaterial.dbo" name="CategoryCourses" color="F4DDBE" x="528" y="48" />
+		<entity schema="EduMaterial.dbo" name="CourseProducers" color="F4DDBE" x="256" y="320" />
+		<entity schema="EduMaterial.dbo" name="CourseTags" color="F4DDBE" x="528" y="320" />
+		<entity schema="EduMaterial.dbo" name="Courses" color="F4DDBE" x="256" y="48" />
+		<entity schema="EduMaterial.dbo" name="IdentityRole" color="BED3F4" x="1312" y="752" />
+		<entity schema="EduMaterial.dbo" name="InstructorCourses" color="F4DDBE" x="48" y="320" />
+		<entity schema="EduMaterial.dbo" name="Instructors" color="F4DDBE" x="48" y="496" />
+		<entity schema="EduMaterial.dbo" name="Producers" color="F4DDBE" x="464" y="496" />
+		<entity schema="EduMaterial.dbo" name="Tags" color="F4DDBE" x="720" y="320" />
+		<entity schema="EduMaterial.dbo" name="__EFMigrationsHistory" color="BED3F4" x="1024" y="752" />
+		<script name="SQL Editor" id="Editor-175a" language="SQL" >
+			<string><![CDATA[SELECT
+	Id, FullName, UserName, NormalizedUserName, Email, NormalizedEmail, EmailConfirmed, PasswordHash, SecurityStamp, 
+	ConcurrencyStamp, PhoneNumber, PhoneNumberConfirmed, TwoFactorEnabled, LockoutEnd, LockoutEnabled, AccessFailedCount
+FROM
+	EduMaterial.dbo.AspNetUsers s;
+GO]]></string>
+		</script>
+		<browser id="Browse-1f39" name="Relational Data Explorer" confirm_updates="y" >
+			<browse_table schema="EduMaterial.dbo" entity="AspNetUsers" x="20" y="20" width="270" height="-60" >
+				<browse_table schema="EduMaterial.dbo" entity="AspNetUserClaims" fk="FK_AspNetUserClaims_AspNetUsers_UserId" x="310" y="20" width="500" height="350" />
+			</browse_table>
+		</browser>
+		<form name="Report" id="Report-1493" template="Page" css="container-fluid" view="frame" >
+			<var name="samplePageNumber" type="4" value="0" mandatory="n" />
+			<var name="sampleRecordsPerPage" type="4" value="100" mandatory="n" />
+			<body name="Body" template="Grid" max_records="100" pos="0,0,0,0,f,f" layout="{{-2,-2,-2,-2,-1},{-2,-2,-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="0" footer_rows="0" >
+				<cell type="label" name="Aspnetusers Data" template="H3" pos="0,0,1,0,l,c" />
+				<cell type="chart" name="Pie" template="Pie" pos="0,1,4,1,l,c" max_records="20" generate_path="y" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="Id" type="-1" />
+						<var name="FullName" type="-1" />
+						<var name="UserName" type="-1" />
+						<var name="NormalizedUserName" type="-1" />
+						<var name="Email" type="-1" />
+						<var name="NormalizedEmail" type="-1" />
+						<var name="EmailConfirmed" type="-7" />
+						<var name="PasswordHash" type="-1" />
+						<var name="SecurityStamp" type="-1" />
+						<var name="ConcurrencyStamp" type="-1" />
+						<var name="PhoneNumber" type="-1" />
+						<var name="PhoneNumberConfirmed" type="-7" />
+						<var name="TwoFactorEnabled" type="-7" />
+						<var name="LockoutEnd" type="92" />
+						<var name="LockoutEnabled" type="-7" />
+						<var name="AccessFailedCount" type="4" />
+						<script ><![CDATA[SELECT * FROM EduMaterial.dbo.AspNetUsers]]></script>
+					</form_script>
+					<param name="item" value="FullName" />
+					<param name="width" value="100%" />
+					<param name="title" value="Sample Chart" />
+					<param name="value" value="AccessFailedCount" />
+					<param name="height" value="400px" />
+				</cell>
+				<tableview name="sample" template="Table" max_records="100" css="sortable table table-striped table-sm table-hover" pos="0,2,4,2,f,f" layout="{{-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2,-2},{-2,-2}}" generate_path="y" scroll="n" html="n" header_rows="1" footer_rows="0" >
+					<form_script type="DataSource" language="SQL" >
+						<var name="Id" type="-1" />
+						<var name="FullName" type="-1" />
+						<var name="UserName" type="-1" />
+						<var name="NormalizedUserName" type="-1" />
+						<var name="Email" type="-1" />
+						<var name="NormalizedEmail" type="-1" />
+						<var name="EmailConfirmed" type="-7" />
+						<var name="PasswordHash" type="-1" />
+						<var name="SecurityStamp" type="-1" />
+						<var name="ConcurrencyStamp" type="-1" />
+						<var name="PhoneNumber" type="-1" />
+						<var name="PhoneNumberConfirmed" type="-7" />
+						<var name="TwoFactorEnabled" type="-7" />
+						<var name="LockoutEnd" type="92" />
+						<var name="LockoutEnabled" type="-7" />
+						<var name="AccessFailedCount" type="4" />
+						<script ><![CDATA[SELECT * FROM EduMaterial.dbo.AspNetUsers]]></script>
+					</form_script>
+					<cell type="label" name="Id" template="Plain" pos="0,0,0,0,c,c" />
+					<cell type="label" name="FullName" template="Plain" pos="1,0,1,0,c,c" />
+					<cell type="label" name="UserName" template="Plain" pos="2,0,2,0,c,c" />
+					<cell type="label" name="NormalizedUserName" template="Plain" pos="3,0,3,0,c,c" />
+					<cell type="label" name="Email" template="Plain" pos="4,0,4,0,c,c" />
+					<cell type="label" name="NormalizedEmail" template="Plain" pos="5,0,5,0,c,c" />
+					<cell type="label" name="EmailConfirmed" template="Plain" pos="6,0,6,0,c,c" />
+					<cell type="label" name="PasswordHash" template="Plain" pos="7,0,7,0,c,c" />
+					<cell type="label" name="SecurityStamp" template="Plain" pos="8,0,8,0,c,c" />
+					<cell type="label" name="ConcurrencyStamp" template="Plain" pos="9,0,9,0,c,c" />
+					<cell type="label" name="PhoneNumber" template="Plain" pos="10,0,10,0,c,c" />
+					<cell type="label" name="PhoneNumberConfirmed" template="Plain" pos="11,0,11,0,c,c" />
+					<cell type="label" name="TwoFactorEnabled" template="Plain" pos="12,0,12,0,c,c" />
+					<cell type="label" name="LockoutEnd" template="Plain" pos="13,0,13,0,c,c" />
+					<cell type="label" name="LockoutEnabled" template="Plain" pos="14,0,14,0,c,c" />
+					<cell type="label" name="${Id}" template="Plain" pos="0,1,0,1,l,c" />
+					<cell type="label" name="${FullName}" template="Plain" pos="1,1,1,1,l,c" />
+					<cell type="label" name="${UserName}" template="Plain" pos="2,1,2,1,l,c" />
+					<cell type="label" name="${NormalizedUserName}" template="Plain" pos="3,1,3,1,l,c" />
+					<cell type="label" name="${Email}" template="Plain" pos="4,1,4,1,l,c" />
+					<cell type="label" name="${NormalizedEmail}" template="Plain" pos="5,1,5,1,l,c" />
+					<cell type="label" name="${EmailConfirmed}" template="Plain" pos="6,1,6,1,l,c" />
+					<cell type="label" name="${PasswordHash}" template="Plain" pos="7,1,7,1,l,c" />
+					<cell type="label" name="${SecurityStamp}" template="Plain" pos="8,1,8,1,l,c" />
+					<cell type="label" name="${ConcurrencyStamp}" template="Plain" pos="9,1,9,1,l,c" />
+					<cell type="label" name="${PhoneNumber}" template="Plain" pos="10,1,10,1,l,c" />
+					<cell type="label" name="${PhoneNumberConfirmed}" template="Plain" pos="11,1,11,1,l,c" />
+					<cell type="label" name="${TwoFactorEnabled}" template="Plain" pos="12,1,12,1,l,c" />
+					<cell type="label" name="${LockoutEnd}" template="Plain" pos="13,1,13,1,l,c" />
+					<cell type="label" name="${LockoutEnabled}" template="Plain" pos="14,1,14,1,l,c" />
+					<cell type="button" name="More" template="Plain" css="btn btn-sm btn-secondary" pos="15,1,15,1,c,c" ref_id="Report-1493" />
+				</tableview>
+				<cell type="href" name="" template="Plain" disabled="${samplePageNumber&lt;1}" pos="0,3,0,3,l,c" glyph="bi-chevron_double_left" ref_id="Report-1493" >
+					<var name="samplePageNumber" value="0" />
+				</cell>
+				<cell type="href" name="" template="Plain" disabled="${samplePageNumber&lt;1}" pos="1,3,1,3,l,c" glyph="bi-chevron_left" ref_id="Report-1493" >
+					<var name="samplePageNumber" value="${Math.max(0,samplePageNumber-1)}" />
+				</cell>
+				<cell type="label" name="Page ${samplePageNumber+1}" template="Plain" pos="2,3,2,3,l,c" />
+				<cell type="href" name="" template="Plain" disabled="${!sampleHasNextPage}" pos="3,3,3,3,l,c" glyph="bi-chevron_right" ref_id="Report-1493" >
+					<var name="samplePageNumber" value="${( samplePageNumber+1 )}" />
+				</cell>
+			</body>
+		</form>
+	</layout>
+</project>

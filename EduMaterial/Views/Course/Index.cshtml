@@ -4,4 +4,210 @@
     Layout = "~/Views/Shared/_LayoutPanel.cshtml";
 }
 
-<h2> Kurs İçerikleri</h2>
+@model IEnumerable<EduMaterial.Models.Course>
+
+@{
+    ViewData["Title"] = "Course Management";
+}
+
+<h2>Course Management</h2>
+@* <form id="addCourseForm" method="post" asp-action="AddCourse" asp-controller="Course">
+    <div>
+        <label for="courseName">Course Name:</label>
+        <input type="text" id="courseName" name="Name" />
+    </div>
+    <div>
+        <label for="courseDescription">Course Description:</label>
+        <input type="text" id="courseDescription" name="Description" />
+    </div>
+    <div>
+        <label for="durationInHours">Duration (in hours):</label>
+        <input type="number" id="durationInHours" name="DurationInHours" />
+    </div>
+    <div>
+        <label for="filepath">Filepath:</label>
+        <input type="text" id="filepath" name="Filepath" />
+    </div>
+    <div>
+        <label for="fileSize">File Size (in bytes):</label>
+        <input type="number" id="fileSize" name="FileSize" />
+    </div>
+    <div>
+        <label for="categories">Categories:</label>
+        <select id="categories" name="categoryIds" multiple>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+    </div>
+    <button type="submit">Add Course</button>
+</form>
+
+<h3>Course List</h3>
+<table id="coursesTable">
+    <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Filepath</th>
+            <th>File Size</th>
+            <th>Categories</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.Name</td>
+                <td>@course.Description</td>
+                <td>@course.DurationInHours</td>
+                <td>@course.Filepath</td>
+                <td>@course.FileSize</td>
+                <td>@string.Join(", ", course.CategoryCourses.Select(cc => cc.Category.Name))</td>
+                <td>
+                    <a href="#" class="editCourseLink" data-id="@course.Id">Düzenle</a> |
+                    <a href="#" class="deletecourseLink" data-id="@course.Id">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Add course using AJAX
+            $('#addCourseForm').submit(function (event) {
+                event.preventDefault();
+
+                const courseData = $(this).serialize();
+
+                $.ajax({
+                    url: '@Url.Action("AddCourse", "Course")',
+                    type: 'POST',
+                    data: courseData,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Failed to add course. Please try again.');
+                    }
+                });
+            });
+        });
+    </script>
+}
+ *@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="mb-4">Course List</h3>
+            <button type="button" class="btn btn-primary mb-4" id="addCourseButton">Add Course</button>
+            <table class="table table-bordered" id="coursesTable">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Filepath</th>
+                        <th>File Size</th>
+                        <th>Categories</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var course in Model)
+                    {
+                        <tr id="@($"course-{course.Id}")">
+                            <td>@course.Name</td>
+                            <td>@course.Description</td>
+                            <td>@course.DurationInHours</td>
+                            <td>@course.Filepath</td>
+                            <td>@course.FileSize</td>
+                            <td>@string.Join(", ", course.CategoryCourses.Select(cc => cc.Category.Name))</td>
+                            <td>
+                                <a href="#" class="btn btn-primary btn-sm editCourseLink" data-id="@course.Id">Edit</a>
+                                <a href="#" class="btn btn-danger btn-sm deleteCourseLink" data-id="@course.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Kurs Ekleme Formu -->
+    <div class="row" id="addCourseFormContainer" style="display: none;">
+        <div class="col-md-6">
+            <h3 class="mb-4">Add Course</h3>
+            <form id="addCourseForm">
+                <div class="form-group">
+                    <label for="courseName">Course Name:</label>
+                    <input type="text" class="form-control" id="courseName" name="Name" />
+                </div>
+                <div class="form-group">
+                    <label for="courseDescription">Course Description:</label>
+                    <input type="text" class="form-control" id="courseDescription" name="Description" />
+                </div>
+                <div class="form-group">
+                    <label for="durationInHours">Duration (in hours):</label>
+                    <input type="number" class="form-control" id="durationInHours" name="DurationInHours" />
+                </div>
+                <div class="form-group">
+                    <label for="filepath">Filepath:</label>
+                    <input type="text" class="form-control" id="filepath" name="Filepath" />
+                </div>
+                <div class="form-group">
+                    <label for="fileSize">File Size (in bytes):</label>
+                    <input type="number" class="form-control" id="fileSize" name="FileSize" />
+                </div>
+                <div class="form-group">
+                    <label for="categories">Categories:</label>
+                    <select class="form-control" id="categories" name="CategoryIds" multiple>
+                        @foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
+                <button type="button" class="btn btn-success" id="saveCourseButton">Save Course</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // Kurs Ekleme Formunu göster/gizle
+        $('#addCourseButton').click(function () {
+            $('#addCourseFormContainer').toggle();
+        });
+
+        // Kurs Ekleme formunu submit etme
+        $('#saveCourseButton').click(function () {
+            var formData = $('#addCourseForm').serialize();
+
+            $.ajax({
+                url: '/Course/AddCourse',
+                method: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Başarılı bir şekilde eklendiyse, formu gizle ve tabloyu güncelle
+                    $('#addCourseFormContainer').hide();
+                    // Tabloyu güncelleme fonksiyonunu buraya çağırabilirsiniz
+                    updateCourseTable();
+                },
+                error: function (xhr, status, error) {
+                    // Hata varsa kullanıcıya bildir
+                    alert('Error: ' + error);
+                }
+            });
+        });
+    });
+    // Tabloyu güncelleme fonksiyonu
+    function updateCourseTable() {
+        // Tabloyu güncelleyecek AJAX isteği buraya gelecek
+    }
+</script>

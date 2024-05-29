@@ -120,16 +120,16 @@ namespace EduMaterial.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d14fa38e-7fc0-41f4-886a-23181325c4b8",
+                            Id = "01426673-993d-4ed6-acfe-ab771e42a457",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a170e216-ab0a-4cbb-b338-223daeb01b50",
+                            ConcurrencyStamp = "210384bb-407d-4d12-ad44-f550357091bd",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             FullName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFhTZVJjQG9X4/NG3CZzu54IWROXmlUMwVRBmDpqzoUxg0MY8CB/m3UCsqQVWWx84A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBzJAxKUbMT3tXelL81+z2ZiAfeG/CqJQbUO1gk+ZlX54yd8qXQgL0fQ8Wj4ywo6iQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -151,10 +151,6 @@ namespace EduMaterial.Migrations
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EditingDate")
                         .HasColumnType("datetime2");
 
@@ -173,15 +169,6 @@ namespace EduMaterial.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("EditingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.HasKey("CategoryId", "CourseId");
@@ -206,7 +193,6 @@ namespace EduMaterial.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DurationInHours")
@@ -215,12 +201,13 @@ namespace EduMaterial.Migrations
                     b.Property<DateTime?>("EditingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Filepath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

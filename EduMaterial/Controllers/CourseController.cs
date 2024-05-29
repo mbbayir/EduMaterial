@@ -14,10 +14,26 @@ namespace EduMaterial.Controllers
         {
             _context = context;
         }
-        
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var categories = await _context.Categories.ToListAsync();
+            var courses = await _context.Courses
+                .Include(c => c.CategoryCourses)
+                .ThenInclude(cc => cc.Category)
+                .ToListAsync();
+
+            ViewBag.Categories = categories;
+            return View(courses);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddCourse(Course course, List<int> categoryIds)
+        {
+            course.CategoryCourses = categoryIds.Select(id => new CategoryCourse { CategoryId = id }).ToList();
+            _context.Courses.Add(course);
+            _context.SaveChangesAsync();
+
+            return Json(course);
         }
 
     }

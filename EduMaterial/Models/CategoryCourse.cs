@@ -1,9 +1,7 @@
 ﻿namespace EduMaterial.Models
 {
-    public class CategoryCourse : BaseEntity
+    public class CategoryCourse 
     {
-     
-
         public int CategoryId { get; set; }
         public Category Category { get; set; }
         public int CourseId { get; set; }
