@@ -27,7 +27,7 @@ namespace EduMaterial.Controllers
             return View(courses);
         }
         [HttpPost]
-        public async Task<IActionResult> AddCourse(Course course, List<int> categoryIds)
+        public async Task<JsonResult> AddCourse(Course course, List<int> categoryIds)
         {
             course.CategoryCourses = categoryIds.Select(id => new CategoryCourse { CategoryId = id }).ToList();
             _context.Courses.Add(course);

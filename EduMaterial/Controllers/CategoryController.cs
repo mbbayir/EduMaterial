@@ -21,6 +21,12 @@ namespace EduMaterial.Controllers
             var categories = await _context.Categories.ToListAsync();
             return View(categories);
         }
+        [HttpGet]
+        public async Task<JsonResult> GetAllCategories()
+        {
+            var categories= await _context.Categories.ToListAsync();
+            return Json(categories);
+        }
 
         //Category Details
         public async Task<IActionResult> Details(int? id)
