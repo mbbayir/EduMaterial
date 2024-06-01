@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Course List</title>
-    <!-- Bootstrap CSS -->
+
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -21,7 +21,7 @@
             <div class="col">
                 <button class="btn btn-primary custom-blue mb-3" data-toggle="modal" data-target="#addCourseModal">Yeni Kurs Ekle</button>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table id="courseTable" class="table table-striped">
                         <thead class="thead-dark">
                             <tr>
                                 <th>Course Name</th>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" id="clicklendi" class="btn btn-primary" id="saveCourseButton">Save Course</button>
+                    <button type="submit" id="saveCourseButton" class="btn btn-primary">Save Course</button>
                 </div>
             </div>
         </div>
@@ -95,11 +95,96 @@
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script src="~/Ajax/Courses/index.js">
-     
+    <script>
+        $(document).ready(function () {
+            loadCategories();
+            loadCourses();
+
+            // Add course button click event
+            $("#saveCourseButton").click(function (e) {
+                e.preventDefault();
+                var course = {
+                    name: $('#courseName').val(),
+                    description: $('#courseDescription').val(),
+                    durationInHours: $('#durationInHours').val(),
+                    filepath: $('#filepath').val(),
+                    fileSize: $('#fileSize').val(),
+                    categoryIds: $("#categories").val(),
+                };
+
+                $.ajax({
+                    url: '/Course/AddCourse',
+                    method: 'POST',
+                    data: JSON.stringify(course),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        $('#addCourseModal').modal('hide');
+                        addCourseToTable(response);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.error('Error adding course:', errorThrown);
+                        alert('Error: ' + errorThrown);
+                    }
+                });
+            });
+        });
+
+        function addCourseToTable(course) {
+            var categories = course.categoryIds.map(function (id) {
+                var category = $('#categories option[value="' + id + '"]').text();
+                return '<span class="badge badge-secondary">' + category + '</span>';
+            }).join(' ');
+
+            var newRow = '<tr>' +
+                '<td>' + course.name + '</td>' +
+                '<td>' + course.description + '</td>' +
+                '<td>' + course.durationInHours + '</td>' +
+                '<td>' + course.filepath + '</td>' +
+                '<td>' + course.fileSize + '</td>' +
+                '<td>' + categories + '</td>' +
+                '</tr>';
+
+            $('#courseTable tbody').append(newRow);
+        }
+
+        function loadCategories() {
+            $.ajax({
+                method: "GET",
+                url: "/Category/GetAllCategories",
+                success: function (response) {
+                    let categories = response;
+                    $('#categories').empty();
+
+                    categories.forEach(category => {
+                        let option = $('<option></option>')
+                            .attr('value', category.id)
+                            .text(category.name);
+                        $('#categories').append(option);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error loading categories:', errorThrown);
+                }
+            });
+        }
+
+        function loadCourses() {
+            $.ajax({
+                method: "GET",
+                url: "/Course/GetAllCourses",
+                success: function (response) {
+                    console.log('Courses loaded:', response);
+                    response.forEach(course => {
+                        addCourseToTable(course);
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('Error loading courses:', errorThrown);
+                    alert('Error: ' + errorThrown);
+                }
+            });
+        }
     </script>
+
 </body>
-</html>
-
-
-
+</html

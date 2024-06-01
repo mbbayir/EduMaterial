@@ -1,4 +1,5 @@
 ﻿using EduMaterial.Models;
+using EduMaterial.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -26,12 +27,50 @@ namespace EduMaterial.Controllers
             ViewBag.Categories = categories;
             return View(courses);
         }
-        [HttpPost]
-        public async Task<JsonResult> AddCourse(Course course, List<int> categoryIds)
+
+        [HttpGet]
+        public async Task<JsonResult> GetAllCourses(CourseViewModel course)
         {
-            course.CategoryCourses = categoryIds.Select(id => new CategoryCourse { CategoryId = id }).ToList();
-            _context.Courses.Add(course);
-            _context.SaveChangesAsync();
+            var courses = await _context.Courses
+                .Include(c => c.CategoryCourses)
+                .ThenInclude(cc => cc.Category)
+                .ToListAsync();
+
+            var courseViewModels = courses.Select(c => new CourseViewModel
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Description = c.Description,
+                DurationInHours = c.DurationInHours,
+                Filepath = c.Filepath,
+                FileSize = c.FileSize,
+                //CategoryIds = c.CategoryCourses != null ? c.CategoryCourses.Select(cc => cc.CategoryId).ToList() : new List<int>()
+            }).ToList();
+
+            return Json(courseViewModels);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> AddCourse(CourseViewModel course)
+        {
+            Course CourseADD = new Course();
+            CourseADD.DurationInHours = course.DurationInHours;
+            CourseADD.Name =course.Name;
+            CourseADD.Description =course.Description;
+            CourseADD.Filepath = course.Filepath;
+            CourseADD.FileSize = course.FileSize;
+            var data = _context.Courses.Add(CourseADD);
+            await _context.SaveChangesAsync();
+
+
+
+            foreach (var categoryıd in course.CategoryIds)
+            {
+                _context.CategoryCourses.Add(new CategoryCourse { CategoryId = categoryıd, CourseId = CourseADD.Id });
+              
+            }
+
+            await _context.SaveChangesAsync();
 
             return Json(course);
         }

@@ -354,6 +354,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\Panel\vendor\fullcalendar\locales\" />
   </ItemGroup>
 

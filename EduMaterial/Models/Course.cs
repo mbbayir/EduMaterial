@@ -8,6 +8,7 @@
         public string? Filepath { get; set; }
         public long FileSize { get; set; } // Dosya boyutu 
 
+
         //Bir kursun birden fazla tagı olabilir
         public ICollection<CourseTag> Tags { get; }
 
