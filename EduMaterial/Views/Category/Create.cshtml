@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    ViewBag.ACategory = "nav-active";
+    Layout = "~/Views/Shared/_LayoutPanel.cshtml";
+}
+
+@model IEnumerable<Category>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary custom-blue mb-3" data-toggle="modal" data-target="#myModal">New Category Add</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Category Name</th>
+                            <th scope="col">Transactions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in Model)
+                        {
+                            <tr>
+                                <td>@category.Name</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary editBtn" data-id="@category.Id">Edit</button>
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-id="@category.Id">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h4 class="modal-title">New Category Add</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createForm">
+                    <div class="form-group">
+                        <label for="categoryName">Category Name:</label>
+                        <input type="text" class="form-control" id="categoryName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editModalLabel">Category Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="categoryId" name="categoryId" />
+                    <div class="form-group">
+                        <label for="editCategoryName">Kategori Adı:</label>
+                        <input type="text" class="form-control" id="editCategoryName" name="editCategoryName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#createForm").submit(function (event) {
+                event.preventDefault();
+
+                var categoryName = $("#categoryName").val();
+
+                if (categoryName.trim() === "") {
+                    alert("Kategori adı boş olamaz!");
+                    return;
+                }
+                $.ajax({
+                    url: "/Category/Create",
+                    type: "POST",
+                    data: { Name: categoryName },
+                    success: function (response) {
+                        alert("Kategori başarıyla eklendi!");
+                        window.location.reload();
+                        $("#categoryName").val("");
+                    },
+                    error: function () {
+                        alert("Kategori eklenirken bir hata oluştu!");
+                    }
+                });
+            });
+            $(".editBtn").click(function (event) {
+                event.preventDefault();
+                var categoryId = $(this).attr('data-id');
+                $('#categoryId').val(categoryId);
+                var categoryName = $(this).closest("tr").find("td:first").text();
+                $('#editCategoryName').val(categoryName);
+                $('#editModal').modal('show');
+            });
+
+            $('#editForm').submit(function (event) {
+                event.preventDefault();
+                var categoryId = $('#categoryId').val();
+                var categoryName = $('#editCategoryName').val();
+
+                if (categoryName.trim() === "") {
+                    alert("Kategori adı boş olamaz");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Category/Edit/" + categoryId,
+                    type: "POST",
+                    data: { Name: categoryName },
+                    success: function (response) {
+                        alert("Kategori başarıyla güncellendi!");
+                        window.location.reload();
+                        $('#editModal').modal('hide');
+                    },
+                    error: function () {
+                        alert('Kategori güncellenirken bir hata oluştu');
+                    }
+                });
+
+            });
+            $(".deleteBtn").click(function (event) {
+                event.preventDefault();
+                var categoryId = $(this).attr('data-id');
+                if (confirm("Bu kategoriyi silmek istediğinizden emin misiniz?")) {
+
+                    $.ajax({
+                        url: "/Category/Delete",
+                        type: "POST",
+                        data: { id: categoryId },
+                        success: function (response) {
+                            alert("Kategori başarıyla Silindi");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("Kategori silinirken bir hata oluştu");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap CSS ve JavaScript CDN -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

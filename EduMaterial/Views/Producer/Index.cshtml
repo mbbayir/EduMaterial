@@ -1,0 +1,171 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    ViewBag.AProducer = "nav-active";
+    Layout = "~/Views/Shared/_LayoutPanel.cshtml";
+}
+
+@model IEnumerable<Producer>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary custom-blue mb-3" data-toggle="modal" data-target="#createProducerModal">Add Producer Name</button>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Producer Name</th>
+                            <th scope="col">Transactions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var producer in Model)
+                        {
+                            <tr>
+                                <td>@producer.Name</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary editBtn" data-id="@producer.Id">Edit</button>
+                                    <button class="btn btn-sm btn-danger deleteBtn" data-id="@producer.Id">Delete</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Modal -->
+<div id="createProducerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h4 class="modal-title">Add Producer Name</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createProducerForm">
+                    <div class="form-group">
+                        <label for="producerName">Producer Name:</label>
+                        <input type="text" class="form-control" id="producerName" name="Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editProducerModal" tabindex="-1" role="dialog" aria-labelledby="editProducerModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="editProducerModalLabel">Producer Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editProducerForm">
+                    <input type="hidden" id="producerId" name="Id" />
+                    <div class="form-group">
+                        <label for="editProducerName">Producer Name:</label>
+                        <input type="text" class="form-control" id="editProducerName" name="Name">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#createProducerForm").submit(function (event) {
+                event.preventDefault();
+
+                var producerName = $("#producerName").val();
+
+                if (producerName.trim() === "") {
+                    alert("Producer name not empty!");
+                    return;
+                }
+                $.ajax({
+                    url: "/Producer/Creat",
+                    type: "POST",
+                    data: { Name: producerName },
+                    success: function (response) {
+                        alert("Producer success Add!");
+                        window.location.reload();
+                        $("#producerName").val("");
+                    },
+                    error: function () {
+                        alert("Producer Add Error!");
+                    }
+                });
+            });
+
+            $(".editBtn").click(function (event) {
+                event.preventDefault();
+                var producerId = $(this).attr('data-id');
+                $('#producerId').val(producerId);
+                var producerName = $(this).closest("tr").find("td:first").text();
+                $('#editProducerName').val(producerName);
+                $('#editProducerModal').modal('show');
+            });
+
+            $('#editProducerForm').submit(function (event) {
+                event.preventDefault();
+                var producerId = $('#producerId').val();
+                var producerName = $('#editProducerName').val();
+
+                if (producerName.trim() === "") {
+                    alert("The Producer name cannot be emptyz!");
+                    return;
+                }
+
+                $.ajax({
+                    url: "/Producer/Edit/" + producerId,
+                    type: "POST",
+                    data: { Name: producerName },
+                    success: function (response) {
+                        alert("The Producer Add Succesfull!");
+                        window.location.reload();
+                        $('#editProducerModal').modal('hide');
+                    },
+                    error: function () {
+                        alert('An error occurred while updating the Producer');
+                    }
+                });
+            });
+            $(".deleteBtn").click(function (event) {
+                event.preventDefault();
+                var producerId = $(this).attr('data-id');
+                if (confirm("do you sure you want to delete The Producer ?")) {
+                    $.ajax({
+                        url: "/Producer/Delete",
+                        type: "POST",
+                        data: { id: producerId },
+                        success: function (response) {
+                            alert("The Produer Has been succesfully Deleted");
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("an error occured while deleted the Producer");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap CSS ve JavaScript CDN -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

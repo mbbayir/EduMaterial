@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <style>
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #f8f9fa; /* Light grey background for a modern look */
+            border-bottom: 1px solid #e0e0e0; /* Subtle border to separate header from content */
+        }
+
+        .logo-container {
+            flex: 1;
+        }
+
+        .site-branding .logo {
+            display: block;
+            text-decoration: none;
+        }
+
+        .site-branding img {
+            max-height: 50px;
+            width: auto;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .separator {
+            margin: 0 10px;
+            border-left: 1px solid #e0e0e0;
+            height: 30px;
+        }
+
+        .userbox .user-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            color: #343a40; /* Darker text color for better contrast */
+            background: none;
+            border: none;
+            padding: 0;
+            margin-right: 10px;
+        }
+
+        .userbox .fa.custom-caret {
+            margin-left: 5px;
+            transition: transform 0.3s;
+        }
+
+        .userbox .dropdown-menu {
+            right: 0;
+            left: auto;
+        }
+
+        #logoutButton {
+            color: #343a40;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <div class="site-branding hidden-lg hidden-md text-dark">
+                <a href="https://www.phd.com.tr/" title="PHD Teknoloji" class="logo logo-dark" target="">
+                    <img src="https://www.phd.com.tr/wp-content/uploads/2021/02/phd-teknoloji-phdcomtr-logo.png" alt="PHD Teknoloji">
+                </a>
+            </div>
+        </div>
+
+        <!-- Start: Search & User Box -->
+        <div class="header-right">
+            <span class="separator"></span>
+            <div id="userbox" class="userbox">
+                <button class="btn btn-link user-dropdown-toggle" type="button" id="userOptionsDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hello @User.Identity.Name
+                    <i class="fa custom-caret"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="userOptionsDropdown">
+                    <div class="dropdown-divider"></div>
+                    <form asp-area="" asp-controller="Home" asp-action="Logout" method="post" onsubmit="changeButtonColor(this)">
+                        <button type="submit" class="dropdown-item" id="logoutButton">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- End: Search & User Box -->
+    </header>
+</body>
+</html>

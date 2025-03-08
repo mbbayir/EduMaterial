@@ -1,0 +1,117 @@
+﻿@{
+    Layout = "_LayoutPanel";
+    ViewBag.ADashboard = "nav-active";
+    Layout = "~/Views/Shared/_LayoutPanel.cshtml";
+
+
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f5f9;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .content {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+            .content h1 {
+                font-size: 32px;
+                color: #333;
+                margin-bottom: 40px;
+                font-weight:bold;
+            }
+
+        .card {
+            background-color: #fff;
+            border: 1px solid #e3e3e3;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            margin-bottom: 20px;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+            }
+
+        .card-body {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        .card-text {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .icon-wrapper {
+            font-size: 50px;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+}
+
+<div class="container">
+    <div class="content">
+        <h1>Course Material Content Editing Panel</h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card" onclick="window.location.href='/Category/Create';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Categories</h5>
+                        <p class="card-text">Toplam @Model.TotalCategories pieces category</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card" onclick="window.location.href='/Course/Index';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Courses</h5>
+                        <p class="card-text">Toplam @Model.TotalCourses Pieces Course</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card" onclick="window.location.href='/Instructor/Index';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Instructor</h5>
+                        <p class="card-text">Toplam @Model.TotalInstructors Pieces Instructor</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card" onclick="window.location.href='/Producer/Index';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Producer</h5>
+                        <p class="card-text">Toplam @Model.TotalProducers Pieces Producer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+}

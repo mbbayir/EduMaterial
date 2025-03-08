@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+@model IEnumerable<EduMaterial.Models.Course>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Populer Courses</h2>
+
+    <div id="courseCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (var item in Model)
+            {
+                <div class="carousel-item @(item == Model.First() ? "active" : "")">
+                    <div class="card">
+                        <img src="@item.Filepath" class="card-img-top" alt="@item.Name">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Name</h5>
+                            <p class="card-text">@item.Description</p>
+                            <a href="@Url.Action("Details", "Course", new { id = item.Id })" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#courseCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#courseCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <h2 class="mt-5">Categories</h2>
+    <div class="list-group">
+        @foreach (var category in Model.SelectMany(c => c.CategoryCourses).Select(cc => cc.Category).Distinct())
+        {
+            <a href="@Url.Action("Category", "Course", new { id = category.Id })" class="list-group-item list-group-item-action">@category.Name</a>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#courseCarousel').carousel({
+                interval: 5000, 
+                pause: 'hover' 
+            });
+        });
+    </script>
+}

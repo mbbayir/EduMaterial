@@ -1,0 +1,29 @@
+﻿@model IEnumerable<EduMaterial.Models.Category>
+
+@{
+    ViewData["Title"] = "Category Index";
+    ViewBag.ACategory = "nav-active";
+    Layout = "~/Views/Shared/_LayoutPanel.cshtml";
+}
+
+<h2>Categories</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Name</td>
+                <td>
+                    <a href="@Url.Action("Details", "Category", new { id = category.Id })" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

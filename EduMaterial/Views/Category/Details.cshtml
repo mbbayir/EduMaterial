@@ -1,0 +1,24 @@
+﻿@model EduMaterial.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+    Layout = "~/Views/Shared/_LayoutPanel.cshtml";
+
+}
+
+<div class="container mt-4">
+    <h2>@Model.Name</h2>
+
+    <h3>Courses</h3>
+    <ul class="list-group">
+        @foreach (var categoryCourse in Model.CategoryCourses)
+        {
+            <li class="list-group-item">
+                <a href="@Url.Action("Details", "Course", new { id = categoryCourse.CourseId })">
+                    @categoryCourse.Course.Name
+                </a>
+                <p>@categoryCourse.Course.Description</p>
+            </li>
+        }
+    </ul>
+</div>
